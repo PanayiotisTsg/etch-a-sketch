@@ -8,6 +8,10 @@ function getGrid() {
             const gridSquare = document.createElement('div');
             gridSquare.classList.add('grid-square');
             gridContainer.appendChild(gridSquare);
+
+            gridSquare.addEventListener('mouseover', e => {
+                e.target.style.backgroundColor = 'black';
+            });
         }
     }
 }
