@@ -3,6 +3,9 @@ const gridButton = document.querySelector('.grid-selection');
 let numberOfSquares = 0;
 const gridLinesButton = document.querySelector('.grid-lines-button');
 let gridLines = false; // Grid lines are not visible by default
+const rainbowButton = document.querySelector('.rainbow');
+let rainbowColor = false;
+let blackColor = true;
 
 // Display the grid size based on input
 function getGrid() {
@@ -41,7 +44,12 @@ function getGrid() {
             gridContainer.appendChild(gridSquare);
 
             gridSquare.addEventListener('mouseover', e => {
-                e.target.style.backgroundColor = 'black';
+                if (blackColor === true){
+                    e.target.style.backgroundColor = 'black';
+                } else {
+                    e.target.style.backgroundColor = 
+                        `rgb(${getRandomRGB()}, ${getRandomRGB()}, ${getRandomRGB()})`;
+                }
             });
         }
     }
@@ -72,3 +80,25 @@ gridLinesButton.addEventListener('click', e => {
         });
     }
 });
+
+// Get random numbers in order to apply random colors
+function getRandomRGB() {
+    return Math.floor(Math.random() * 256);
+}
+
+function toggleRainbow(e) {
+    const gridSquares = gridContainer.childNodes;
+
+    if (gridContainer.hasChildNodes) {
+        gridSquares.forEach(square => {
+            square.addEventListener('mouseover', e => {
+                e.target.style.backgroundColor = 
+                    `rgb(${getRandomRGB()}, ${getRandomRGB()}, ${getRandomRGB()})`;
+                blackColor = false;
+                rainbowColor = true;
+            })
+        })
+    }
+}
+
+rainbowButton.addEventListener('click', toggleRainbow);
