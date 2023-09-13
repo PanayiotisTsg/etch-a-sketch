@@ -6,6 +6,7 @@ let gridLines = false; // Grid lines are not visible by default
 const rainbowButton = document.querySelector('.rainbow');
 let rainbowColor = false;
 let blackColor = true;
+const blackButton = document.querySelector('.black');
 
 // Display the grid size based on input
 function getGrid() {
@@ -86,19 +87,40 @@ function getRandomRGB() {
     return Math.floor(Math.random() * 256);
 }
 
+
 function toggleRainbow(e) {
     const gridSquares = gridContainer.childNodes;
+
+    // Adjust the color of the buttons based on selection
+    blackColor = false;
+    rainbowColor = true;
+    e.target.style.cssText = 'background-color: var(--primary-dark); color: var(--primary-light);';
+    blackButton.style.cssText = 'background-color: var(--primary-light); color: var(--primary-dark);';
 
     if (gridContainer.hasChildNodes) {
         gridSquares.forEach(square => {
             square.addEventListener('mouseover', e => {
                 e.target.style.backgroundColor = 
                     `rgb(${getRandomRGB()}, ${getRandomRGB()}, ${getRandomRGB()})`;
-                blackColor = false;
-                rainbowColor = true;
             })
         })
     }
 }
 
+function toggleBlack(e) {
+    const gridSquares = gridContainer.childNodes;
+
+    blackColor = true;
+    rainbowColor = false;
+    e.target.style.cssText = 'background-color: var(--primary-dark); color: var(--primary-light);';
+    rainbowButton.style.cssText = 'background-color: var(--primary-light); color: var(--primary-dark);';
+
+    gridSquares.forEach(square => {
+        square.addEventListener('mouseover', e => {
+            e.target.style.backgroundColor = 'black';
+        })
+    })
+}
+
 rainbowButton.addEventListener('click', toggleRainbow);
+blackButton.addEventListener('click', toggleBlack);
