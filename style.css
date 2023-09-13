@@ -2,6 +2,7 @@
     --primary-light: rgb(237, 237, 237);
     --primary-dark: rgb(46, 45, 45);
     --secondary-light: rgb(255, 255, 255);
+    --grid-lines: rgb(202, 200, 200);
 }
 
 *,
@@ -71,6 +72,9 @@ main {
     width: 170px;
     height: 40px;
     font-size: 17px;
+}
+
+button {
     border: 1px solid var(--primary-dark);
     border-radius: 6px;
     transition: all 0.1s linear;
@@ -84,6 +88,13 @@ main {
 button:hover {
     cursor: pointer;
     transform: scale(1.05);
+}
+
+.size {
+    text-align: center;
+    display: flex;
+    align-items: flex-end;
+    justify-content: center;
 }
 
 footer {
