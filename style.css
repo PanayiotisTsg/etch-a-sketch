@@ -40,7 +40,7 @@ body {
     text-align: center;
     font-size: 40px;
     margin: 0;
-    padding: 0;
+    padding: 20px 0 0 0;
 }
 
 main {
@@ -100,4 +100,36 @@ button:hover {
 footer {
     text-align: center;
     padding: 0;
+}
+
+@media only screen and (max-width: 1040px) {
+    .grid-container {
+        margin: 0;
+    }
+}
+
+@media only screen and (max-width: 860px) {
+    .grid-container {
+        width: 500px;
+        height: 500px;
+    }
+}
+
+@media only screen and (max-width: 750px) {
+    .grid-container{
+        width: 400px;
+        height: 400px;
+    }
+}
+
+@media only screen and (max-width: 650px) {
+    main {
+        flex-direction: column-reverse;
+        align-items: center;
+    }
+
+    .grid-container {
+        width: 300px;
+        height: 300px;
+    }
 }

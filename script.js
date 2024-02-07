@@ -35,12 +35,9 @@ function setUpGrid(e) {
     for (let i = 0; i < numberOfSquares; i++) {
         for (let j = 0; j < numberOfSquares; j++) {
             const gridSquare = document.createElement('div');
-
-            // Divide the container width(600px) by the grid size
-            // entered by the user to get the square width
-            // Example: user input: 16 -> 600 / 16 = 37.5px
-            gridSquare.style.width = `${600 / numberOfSquares}px`;
-            gridSquare.style.height = `${600 / numberOfSquares}px`;
+            // Get the grid square width/height percentage related to the container
+            gridSquare.style.width = `${600 / numberOfSquares / 600 * 100}%`;
+            gridSquare.style.height = `${600 / numberOfSquares / 600 * 100}%`;
             if (gridLines) {
                 gridSquare.style.border = '1px solid var(--grid-lines)';
             }
