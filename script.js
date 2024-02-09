@@ -99,6 +99,10 @@ function toggleGridLines(e) {
     e.target.classList.toggle('black');
 }
 
+function clearGrid() {
+    slider.dispatchEvent(inputEvent);
+}
+
 const gridContainer = document.querySelector('.grid-container');
 const gridLinesButton = document.querySelector('.grid-lines-button');
 const rainbowButton = document.querySelector('.rainbow');
@@ -106,6 +110,7 @@ const blackButton = document.querySelector('.black');
 const eraserButton = document.querySelector('.eraser');
 const slider = document.querySelector('.slider');
 const size = document.querySelector('.size');
+const clearButton = document.querySelector('.clear');
 const BUTTON_ON = 'background-color: var(--primary-dark); color: var(--primary-light);';
 const BUTTON_OFF = 'background-color: var(--primary-light); color: var(--primary-dark);';
 let numberOfSquares = 0;
@@ -121,5 +126,6 @@ rainbowButton.addEventListener('click', toggleRainbow);
 blackButton.addEventListener('click', toggleBlack);
 eraserButton.addEventListener('click', toggleEraser);
 slider.addEventListener('input', setUpGrid);
+clearButton.addEventListener('click', clearGrid);
 // Trigger the event for the default grid
 slider.dispatchEvent(inputEvent);
