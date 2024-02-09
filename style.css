@@ -60,7 +60,7 @@ main {
     display: flex;
     flex-wrap: wrap;
     margin-right: 220px;
-    background-color: white;
+    background-color: var(--secondary-light);
     box-shadow: 0 4px 10px grey;
 }
 

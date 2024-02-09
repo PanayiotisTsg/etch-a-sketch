@@ -10,17 +10,30 @@ function getRandomColor() {
 function toggleRainbow(e) {
     blackColor = false;
     rainbowColor = true;
+    eraser = false;
     // Adjust the color of the buttons based on selection
-    e.target.style.cssText = 'background-color: var(--primary-dark); color: var(--primary-light);';
-    blackButton.style.cssText = 'background-color: var(--primary-light); color: var(--primary-dark);';
+    e.target.style.cssText = BUTTON_ON;
+    blackButton.style.cssText = BUTTON_OFF;
+    eraserButton.style.cssText = BUTTON_OFF;
 }
 
 function toggleBlack(e) {
     blackColor = true;
     rainbowColor = false;
+    eraser = false;
     // Adjust the color of the buttons based on selection
-    e.target.style.cssText = 'background-color: var(--primary-dark); color: var(--primary-light);';
-    rainbowButton.style.cssText = 'background-color: var(--primary-light); color: var(--primary-dark);';
+    e.target.style.cssText = BUTTON_ON;
+    rainbowButton.style.cssText = BUTTON_OFF;
+    eraserButton.style.cssText = BUTTON_OFF;
+}
+
+function toggleEraser(e) {
+    blackColor = false;
+    rainbowColor = false;
+    eraser = true;
+    e.target.style.cssText = BUTTON_ON;
+    blackButton.style.cssText = BUTTON_OFF;
+    rainbowButton.style.cssText = BUTTON_OFF;
 }
 
 function setUpGrid(e) {
@@ -71,7 +84,10 @@ function setMouseHold(e) {
 }
 
 function setBgColor(e) {
-    if (mouseDown) e.target.style.backgroundColor = (blackColor) ? 'black' : getRandomColor();
+    if (mouseDown) e.target.style.backgroundColor = 
+        (blackColor) ? 'black' : 
+        (rainbowColor) ? getRandomColor() :
+        'var(--secondary-light)';
 }
 
 function toggleGridLines(e) {
@@ -87,18 +103,23 @@ const gridContainer = document.querySelector('.grid-container');
 const gridLinesButton = document.querySelector('.grid-lines-button');
 const rainbowButton = document.querySelector('.rainbow');
 const blackButton = document.querySelector('.black');
+const eraserButton = document.querySelector('.eraser');
 const slider = document.querySelector('.slider');
 const size = document.querySelector('.size');
+const BUTTON_ON = 'background-color: var(--primary-dark); color: var(--primary-light);';
+const BUTTON_OFF = 'background-color: var(--primary-light); color: var(--primary-dark);';
 let numberOfSquares = 0;
 let gridLines = false;
 let rainbowColor = false;
 let blackColor = true;
 let mouseDown = false;
 let inputEvent = new Event('input');
+let eraser = false;
 
 gridLinesButton.addEventListener('click', toggleGridLines);
 rainbowButton.addEventListener('click', toggleRainbow);
 blackButton.addEventListener('click', toggleBlack);
+eraserButton.addEventListener('click', toggleEraser);
 slider.addEventListener('input', setUpGrid);
 // Trigger the event for the default grid
 slider.dispatchEvent(inputEvent);
