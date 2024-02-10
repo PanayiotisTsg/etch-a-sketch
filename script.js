@@ -52,7 +52,9 @@ function setUpGrid(e) {
             gridSquare.style.width = `${600 / numberOfSquares / 600 * 100}%`;
             gridSquare.style.height = `${600 / numberOfSquares / 600 * 100}%`;
             if (gridLines) {
-                gridSquare.style.border = '1px solid var(--grid-lines)';
+                //gridSquare.style.border = '1px solid var(--grid-lines)';
+                gridSquare.style.borderRight = '1px solid var(--grid-lines)';
+                gridSquare.style.borderTop = '1px solid var(--grid-lines)';
             }
             gridContainer.appendChild(gridSquare);
             gridSquare.addEventListener('mousedown', setMouseHold);
@@ -93,7 +95,9 @@ function setBgColor(e) {
 function toggleGridLines(e) {
     const squares = gridContainer.childNodes;
     squares.forEach(square => {
-        square.style.border = (gridLines) ? 'none' : '1px solid var(--grid-lines)';
+        //square.style.border = (gridLines) ? 'none' : '1px solid var(--grid-lines)';
+        square.style.borderRight = (gridLines) ? 'none' : '1px solid var(--grid-lines)';
+        square.style.borderTop = (gridLines) ? 'none' : '1px solid var(--grid-lines)';
     })
     gridLines = !gridLines;
     e.target.classList.toggle('black');
