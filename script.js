@@ -36,6 +36,16 @@ function toggleEraser(e) {
     rainbowButton.style.cssText = BUTTON_OFF;
 }
 
+function selectCustomColor() {
+    blackColor = false;
+    rainbowColor = false;
+    eraser = false;
+    customColor = true;
+    blackButton.style.cssText = BUTTON_OFF;
+    rainbowButton.style.cssText = BUTTON_OFF;
+    eraserButton.style.cssText = BUTTON_OFF;
+}
+
 function setUpGrid(e) {
     size.textContent = `${e.target.value} x ${e.target.value}`
 
@@ -52,7 +62,6 @@ function setUpGrid(e) {
             gridSquare.style.width = `${600 / numberOfSquares / 600 * 100}%`;
             gridSquare.style.height = `${600 / numberOfSquares / 600 * 100}%`;
             if (gridLines) {
-                //gridSquare.style.border = '1px solid var(--grid-lines)';
                 gridSquare.style.borderRight = '1px solid var(--grid-lines)';
                 gridSquare.style.borderTop = '1px solid var(--grid-lines)';
             }
@@ -89,13 +98,13 @@ function setBgColor(e) {
     if (mouseDown) e.target.style.backgroundColor = 
         (blackColor) ? 'black' : 
         (rainbowColor) ? getRandomColor() :
-        'var(--secondary-light)';
+        (eraser) ? 'var(--secondary-light)' :
+        customColorInput.value;
 }
 
 function toggleGridLines(e) {
     const squares = gridContainer.childNodes;
     squares.forEach(square => {
-        //square.style.border = (gridLines) ? 'none' : '1px solid var(--grid-lines)';
         square.style.borderRight = (gridLines) ? 'none' : '1px solid var(--grid-lines)';
         square.style.borderTop = (gridLines) ? 'none' : '1px solid var(--grid-lines)';
     })
@@ -115,6 +124,7 @@ const eraserButton = document.querySelector('.eraser');
 const slider = document.querySelector('.slider');
 const size = document.querySelector('.size');
 const clearButton = document.querySelector('.clear');
+const customColorInput = document.querySelector('.color');
 const BUTTON_ON = 'background-color: var(--primary-dark); color: var(--primary-light);';
 const BUTTON_OFF = 'background-color: var(--primary-light); color: var(--primary-dark);';
 let numberOfSquares = 0;
@@ -124,11 +134,13 @@ let blackColor = true;
 let mouseDown = false;
 let inputEvent = new Event('input');
 let eraser = false;
+let customColor = false;
 
 gridLinesButton.addEventListener('click', toggleGridLines);
 rainbowButton.addEventListener('click', toggleRainbow);
 blackButton.addEventListener('click', toggleBlack);
 eraserButton.addEventListener('click', toggleEraser);
+customColorInput.addEventListener('click', selectCustomColor);
 slider.addEventListener('input', setUpGrid);
 clearButton.addEventListener('click', clearGrid);
 // Trigger the event for the default grid
