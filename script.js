@@ -11,39 +11,45 @@ function toggleRainbow(e) {
     blackColor = false;
     rainbowColor = true;
     eraser = false;
+    customColor = false;
     // Adjust the color of the buttons based on selection
-    e.target.style.cssText = BUTTON_ON;
-    blackButton.style.cssText = BUTTON_OFF;
-    eraserButton.style.cssText = BUTTON_OFF;
+    toggleSelection(blackColor, rainbowColor, eraser, customColor);
 }
 
 function toggleBlack(e) {
     blackColor = true;
     rainbowColor = false;
     eraser = false;
+    customColor = false;
     // Adjust the color of the buttons based on selection
-    e.target.style.cssText = BUTTON_ON;
-    rainbowButton.style.cssText = BUTTON_OFF;
-    eraserButton.style.cssText = BUTTON_OFF;
+    toggleSelection(blackColor, rainbowColor, eraser, customColor);
 }
 
 function toggleEraser(e) {
     blackColor = false;
     rainbowColor = false;
     eraser = true;
-    e.target.style.cssText = BUTTON_ON;
-    blackButton.style.cssText = BUTTON_OFF;
-    rainbowButton.style.cssText = BUTTON_OFF;
+    customColor = false;
+    toggleSelection(blackColor, rainbowColor, eraser, customColor);
 }
 
-function selectCustomColor() {
+function selectCustomColor(e) {
     blackColor = false;
     rainbowColor = false;
     eraser = false;
     customColor = true;
-    blackButton.style.cssText = BUTTON_OFF;
-    rainbowButton.style.cssText = BUTTON_OFF;
-    eraserButton.style.cssText = BUTTON_OFF;
+    toggleSelection(blackColor, rainbowColor, eraser, customColor);
+}
+
+function toggleSelection(black, rainbow, eraser, custom) {
+    blackButton.style.cssText = (black) ? BUTTON_ON : BUTTON_OFF;
+    rainbowButton.style.cssText = (rainbow) ? BUTTON_ON : BUTTON_OFF;
+    eraserButton.style.cssText = (eraser) ? BUTTON_ON : BUTTON_OFF;
+    if (custom) {
+        customColorInput.classList.add('on');
+    } else {
+        customColorInput.classList.remove('on');
+    }
 }
 
 function setUpGrid(e) {
@@ -140,7 +146,7 @@ gridLinesButton.addEventListener('click', toggleGridLines);
 rainbowButton.addEventListener('click', toggleRainbow);
 blackButton.addEventListener('click', toggleBlack);
 eraserButton.addEventListener('click', toggleEraser);
-customColorInput.addEventListener('click', selectCustomColor);
+customColorInput.addEventListener('input', selectCustomColor);
 slider.addEventListener('input', setUpGrid);
 clearButton.addEventListener('click', clearGrid);
 // Trigger the event for the default grid

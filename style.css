@@ -86,13 +86,19 @@ main {
     background-color: transparent;
     border: none;
     cursor: pointer;
-    transition: transform 0.1s linear;
+    transition: all 0.1s linear;
 }
 
 .color::-webkit-color-swatch {
     border-radius: 50%;
     border: none;
     box-shadow: 0 4px 10px grey;
+    transition: border 0.05s ease;
+}
+
+.on::-webkit-color-swatch {
+    border: 3px solid var(--primary-dark);
+    transition: border 0.05s ease;
 }
 
 .color:hover {
