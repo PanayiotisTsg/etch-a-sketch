@@ -13,8 +13,9 @@ function toggleRainbow(e) {
     eraser = false;
     customColor = false;
     shading = false;
+    lighten = false;
     // Adjust the color of the buttons based on selection
-    toggleSelection(blackColor, rainbowColor, eraser, customColor, shading);
+    toggleSelection(blackColor, rainbowColor, eraser, customColor, shading, lighten);
 }
 
 function toggleBlack(e) {
@@ -23,8 +24,9 @@ function toggleBlack(e) {
     eraser = false;
     customColor = false;
     shading = false;
+    lighten = false;
     // Adjust the color of the buttons based on selection
-    toggleSelection(blackColor, rainbowColor, eraser, customColor, shading);
+    toggleSelection(blackColor, rainbowColor, eraser, customColor, shading, lighten);
 }
 
 function toggleEraser(e) {
@@ -33,7 +35,8 @@ function toggleEraser(e) {
     eraser = true;
     customColor = false;
     shading = false;
-    toggleSelection(blackColor, rainbowColor, eraser, customColor, shading);
+    lighten = false;
+    toggleSelection(blackColor, rainbowColor, eraser, customColor, shading, lighten);
 }
 
 function selectCustomColor(e) {
@@ -42,7 +45,8 @@ function selectCustomColor(e) {
     eraser = false;
     customColor = true;
     shading = false;
-    toggleSelection(blackColor, rainbowColor, eraser, customColor, shading);
+    lighten = false;
+    toggleSelection(blackColor, rainbowColor, eraser, customColor, shading, lighten);
 }
 
 function toggleShading() {
@@ -51,14 +55,26 @@ function toggleShading() {
     eraser = false;
     customColor = false;
     rainbowColor = false;
-    toggleSelection(blackColor, rainbowColor, eraser, customColor, shading);
+    lighten = false;
+    toggleSelection(blackColor, rainbowColor, eraser, customColor, shading, lighten);
 }
 
-function toggleSelection(black, rainbow, eraser, custom, shading) {
+function toggleLighten() {
+    lighten = true;
+    blackColor = false;
+    eraser = false;
+    customColor = false;
+    rainbowColor = false;
+    shading = false;
+    toggleSelection(blackColor, rainbowColor, eraser, customColor, shading, lighten);
+}
+
+function toggleSelection(black, rainbow, eraser, custom, shading, lighten) {
     blackButton.style.cssText = (black) ? BUTTON_ON : BUTTON_OFF;
     rainbowButton.style.cssText = (rainbow) ? BUTTON_ON : BUTTON_OFF;
     eraserButton.style.cssText = (eraser) ? BUTTON_ON : BUTTON_OFF;
     shadingButton.style.cssText = (shading) ? BUTTON_ON : BUTTON_OFF;
+    lightenButton.style.cssText = (lighten) ? BUTTON_ON : BUTTON_OFF;
     if (custom) {
         customColorInput.classList.add('on');
     } else {
@@ -124,7 +140,11 @@ function setBgColor(e) {
         (customColor) ? customColorInput.value :
         e.target.style.backgroundColor;
 
-        if (shading) setShading(e);
+        if (shading) {
+            setShading(e);
+        } else if (lighten) {
+            setLighten(e);
+        }
     }
 }
 
@@ -148,7 +168,6 @@ function getCurrentRGB(color) {
 }
 
 function setShading(e) {
-    console.log(e.target.style.backgroundColor);
     let currentRGB = getCurrentRGB(e.target.style.backgroundColor);
     let r = +currentRGB[0];
     let g = +currentRGB[1];
@@ -161,11 +180,25 @@ function setShading(e) {
     e.target.style.backgroundColor = `rgb(${r}, ${g}, ${b})`;
 }
 
+function setLighten(e) {
+    let currentRGB = getCurrentRGB(e.target.style.backgroundColor);
+    let r = +currentRGB[0];
+    let g = +currentRGB[1];
+    let b = +currentRGB[2];
+
+    r = (r < 218) ? r + 25 : 255;
+    g = (g < 218) ? g + 25 : 255;
+    b = (b < 218) ? b + 25 : 255;
+
+    e.target.style.backgroundColor = `rgb(${r}, ${g}, ${b})`;
+}
+
 const gridContainer = document.querySelector('.grid-container');
 const gridLinesButton = document.querySelector('.grid-lines-button');
 const rainbowButton = document.querySelector('.rainbow');
 const blackButton = document.querySelector('.black');
 const shadingButton = document.querySelector('.shading');
+const lightenButton = document.querySelector('.lighten');
 const eraserButton = document.querySelector('.eraser');
 const slider = document.querySelector('.slider');
 const size = document.querySelector('.size');
@@ -182,11 +215,13 @@ let inputEvent = new Event('input');
 let eraser = false;
 let customColor = false;
 let shading = false;
+let lighten = false;
 
 gridLinesButton.addEventListener('click', toggleGridLines);
 rainbowButton.addEventListener('click', toggleRainbow);
 blackButton.addEventListener('click', toggleBlack);
 shadingButton.addEventListener('click', toggleShading);
+lightenButton.addEventListener('click', toggleLighten);
 eraserButton.addEventListener('click', toggleEraser);
 customColorInput.addEventListener('input', selectCustomColor);
 slider.addEventListener('input', setUpGrid);
