@@ -126,10 +126,12 @@ button:hover {
     display: flex;
     align-items: flex-end;
     justify-content: center;
+    height: auto;
 }
 
 .slider {
     cursor: pointer;
+    height: auto;
 }
 
 footer {
