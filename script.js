@@ -7,66 +7,44 @@ function getRandomColor() {
     return `rgb(${getRandomRGB()}, ${getRandomRGB()}, ${getRandomRGB()})`;
 }
 
-function toggleRainbow(e) {
+function toggleColor(e) {
     blackColor = false;
-    rainbowColor = true;
-    eraser = false;
+    rainbowColor = false;
     customColor = false;
     shading = false;
     lighten = false;
-    // Adjust the color of the buttons based on selection
-    toggleSelection(blackColor, rainbowColor, eraser, customColor, shading, lighten);
-}
-
-function toggleBlack(e) {
-    blackColor = true;
-    rainbowColor = false;
     eraser = false;
-    customColor = false;
-    shading = false;
-    lighten = false;
-    // Adjust the color of the buttons based on selection
-    toggleSelection(blackColor, rainbowColor, eraser, customColor, shading, lighten);
-}
+    
+    switch (e.target.className) {
+        case 'black':
+            blackColor = true;
+            break;
+        case 'rainbow':
+            rainbowColor = true;
+            break;
+        case 'color':
+        case 'color on':
+            customColor = true;
+            break;
+        case 'shading':
+            shading = true;
+            break;
+        case 'lighten':
+            lighten = true;
+            break;
+        case 'eraser':
+            eraser = true;
+            break;
+    }
 
-function toggleEraser(e) {
-    blackColor = false;
-    rainbowColor = false;
-    eraser = true;
-    customColor = false;
-    shading = false;
-    lighten = false;
-    toggleSelection(blackColor, rainbowColor, eraser, customColor, shading, lighten);
-}
-
-function selectCustomColor(e) {
-    blackColor = false;
-    rainbowColor = false;
-    eraser = false;
-    customColor = true;
-    shading = false;
-    lighten = false;
-    toggleSelection(blackColor, rainbowColor, eraser, customColor, shading, lighten);
-}
-
-function toggleShading() {
-    shading = true;
-    blackColor = false;
-    eraser = false;
-    customColor = false;
-    rainbowColor = false;
-    lighten = false;
-    toggleSelection(blackColor, rainbowColor, eraser, customColor, shading, lighten);
-}
-
-function toggleLighten() {
-    lighten = true;
-    blackColor = false;
-    eraser = false;
-    customColor = false;
-    rainbowColor = false;
-    shading = false;
-    toggleSelection(blackColor, rainbowColor, eraser, customColor, shading, lighten);
+    toggleSelection(
+        blackColor, 
+        rainbowColor, 
+        eraser, 
+        customColor, 
+        shading, 
+        lighten
+    );
 }
 
 function toggleSelection(black, rainbow, eraser, custom, shading, lighten) {
@@ -218,12 +196,12 @@ let shading = false;
 let lighten = false;
 
 gridLinesButton.addEventListener('click', toggleGridLines);
-rainbowButton.addEventListener('click', toggleRainbow);
-blackButton.addEventListener('click', toggleBlack);
-shadingButton.addEventListener('click', toggleShading);
-lightenButton.addEventListener('click', toggleLighten);
-eraserButton.addEventListener('click', toggleEraser);
-customColorInput.addEventListener('input', selectCustomColor);
+rainbowButton.addEventListener('click', toggleColor);
+blackButton.addEventListener('click', toggleColor);
+shadingButton.addEventListener('click', toggleColor);
+lightenButton.addEventListener('click', toggleColor);
+eraserButton.addEventListener('click', toggleColor);
+customColorInput.addEventListener('click', toggleColor);
 slider.addEventListener('input', setUpGrid);
 clearButton.addEventListener('click', clearGrid);
 // Trigger the event for the default grid
